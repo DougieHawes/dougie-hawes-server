@@ -23,7 +23,7 @@ app.get("/", (req, res) => res.status(200).json({ msg: "Hello World!" }));
 app.use("/user", userRoutes);
 app.use("/work", workRoutes);
 
-// mongoose
-//   .connect(MONGODB)
-//   .then(() => console.log("mongodb connected"))
-//   .catch((e) => console.log(e));
+mongoose
+  .connect(MONGODB)
+  .then(() => console.log("mongodb connected"))
+  .catch((e) => console.log(e));
