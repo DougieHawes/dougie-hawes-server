@@ -4,7 +4,7 @@ import express from "express";
 import mongoose from "mongoose";
 
 import userRoutes from "./routes/userRoutes.js";
-import productRoutes from "./routes/productRoutes.js";
+import workRoutes from "./routes/workRoutes.js";
 
 dotenv.config();
 
@@ -21,7 +21,7 @@ app.listen(PORT, () => console.log(`express app running on port:${PORT}`));
 app.get("/", (req, res) => res.status(200).json({ msg: "Hello World!" }));
 
 app.use("/user", userRoutes);
-app.use("/product", productRoutes);
+app.use("/work", workRoutes);
 
 // mongoose
 //   .connect(MONGODB)
