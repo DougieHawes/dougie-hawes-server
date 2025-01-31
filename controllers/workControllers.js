@@ -1,3 +1,6 @@
+import multer from "multer";
+import path from "path";
+
 import Work from "../models/Work.js";
 
 export const getWork = async (req, res) => {
@@ -22,19 +25,12 @@ export const getWorkItem = async (req, res) => {
 
 export const createWorkItem = async (req, res) => {
   try {
-    const { title, image, siteLink, codeLink, description } = req.body;
+    const { title, image, siteLink, codeLink, description, category } =
+      req.body;
 
-    const newItem = new Work({
-      title,
-      image,
-      siteLink,
-      codeLink,
-      description,
-    });
-
-    await newItem.save();
-
-    res.status(200).json(newItem);
+    res
+      .status(200)
+      .json({ title, image, siteLink, codeLink, description, category });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }

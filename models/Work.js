@@ -20,6 +20,10 @@ const WorkSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  category: {
+    type: String,
+    required: true,
+  },
 });
 
 const Work = mongoose.model("Work", WorkSchema);
