@@ -5,9 +5,12 @@ const WorkSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: String,
-  },
+  images: [
+    {
+      type: String,
+      required: true,
+    },
+  ],
   siteLink: {
     type: String,
     required: true,
@@ -16,6 +19,7 @@ const WorkSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  codeLinkAux: { type: String },
   description: {
     type: String,
     required: true,

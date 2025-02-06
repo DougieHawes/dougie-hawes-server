@@ -25,12 +25,36 @@ export const getWorkItem = async (req, res) => {
 
 export const createWorkItem = async (req, res) => {
   try {
-    const { title, image, siteLink, codeLink, description, category } =
+    const { title, siteLink, codeLink, codeLinkAux, description, category } =
       req.body;
 
-    res
-      .status(200)
-      .json({ title, image, siteLink, codeLink, description, category });
+    console.log(req.body);
+
+    if (!title || !siteLink || !codeLink || !description || !category) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
+
+    const imagePaths = req.files.map((file) => file.path);
+
+    if (!req.files || req.files.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "At least one image is required" });
+    }
+
+    const newWork = new Work({
+      title,
+      images: imagePaths,
+      siteLink,
+      codeLink,
+      codeLinkAux,
+      description,
+      category,
+    });
+
+    await newWork.save();
+
+    res.status(200).json(newWork);
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }

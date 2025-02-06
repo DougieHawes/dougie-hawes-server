@@ -1,4 +1,7 @@
 import express from "express";
+import multer from "multer";
+
+const upload = multer({ dest: "uploads/" });
 
 import {
   getWork,
@@ -11,6 +14,6 @@ const router = express.Router();
 
 router.get("/", getWork);
 router.get("/:workid", getWorkItem);
-router.post("/", isAuth, createWorkItem);
+router.post("/", upload.array("images", 10), createWorkItem);
 
 export default router;
