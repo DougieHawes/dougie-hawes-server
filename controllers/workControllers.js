@@ -1,6 +1,3 @@
-import multer from "multer";
-import path from "path";
-
 import Work from "../models/Work.js";
 
 export const getWork = async (req, res) => {
@@ -28,23 +25,25 @@ export const createWorkItem = async (req, res) => {
     const { title, siteLink, codeLink, codeLinkAux, description, category } =
       req.body;
 
-    console.log(req.body);
+    const image1 = req.files["image1"]
+      ? `/uploads/${req.files["image1"][0].filename}`
+      : null;
+    const image2 = req.files["image2"]
+      ? `/uploads/${req.files["image2"][0].filename}`
+      : null;
+    const image3 = req.files["image3"]
+      ? `/uploads/${req.files["image3"][0].filename}`
+      : null;
 
     if (!title || !siteLink || !codeLink || !description || !category) {
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    const imagePaths = req.files.map((file) => file.path);
-
-    if (!req.files || req.files.length === 0) {
-      return res
-        .status(400)
-        .json({ message: "At least one image is required" });
-    }
-
     const newWork = new Work({
       title,
-      images: imagePaths,
+      image1,
+      image2,
+      image3,
       siteLink,
       codeLink,
       codeLinkAux,

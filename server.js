@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 
+import emailRoutes from "./routes/emailRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import workRoutes from "./routes/workRoutes.js";
 
@@ -15,12 +16,11 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static("uploads"));
 
 app.listen(PORT, () => console.log(`express app running on port:${PORT}`));
 
-app.get("/", (req, res) => res.status(200).json({ msg: "Hello World!" }));
-
+app.use("/email", emailRoutes);
 app.use("/user", userRoutes);
 app.use("/work", workRoutes);
 

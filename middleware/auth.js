@@ -1,4 +1,4 @@
-export const isAuth = (req, res, next) => {
+const isAuth = (req, res, next) => {
   try {
     const authHeader = req.header("Authorization");
 
@@ -25,3 +25,5 @@ export const isAuth = (req, res, next) => {
     return res.status(401).json({ message: "Invalid or expired token." });
   }
 };
+
+export default isAuth;
